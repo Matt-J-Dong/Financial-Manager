@@ -166,8 +166,7 @@ public class FinancialData {
         	creditSources.add("Bill Paid: -"+ creditTotal);
         	creditTotal = 0;
     	}else {
-    		String message = "Error-Task Not Possible";
-    		new MessageGUI(message);
+    		new MessageGUI();
     		return;
     	}
     	

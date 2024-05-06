@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 public class MessageGUI {
     private JFrame subFrame;
-    private JList<String> sourceList;
-    private DefaultListModel<String> listModel;
 
     public MessageGUI() {
         subFrame = new JFrame("Messages");
@@ -15,15 +13,12 @@ public class MessageGUI {
         subFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         subFrame.getContentPane().setLayout(null);
-        
-        
+        String message = "Error-Task Not Possible";
+        JLabel messageLabel = new JLabel(message);
+        messageLabel.setBounds(70, 46, 162, 16);
+        subFrame.getContentPane().add(messageLabel);
 
         subFrame.setVisible(true);
     }
 
-	public MessageGUI(String message) {
-		JLabel messageLabel = new JLabel(message);
-        messageLabel.setBounds(105, 46, 61, 16);
-        subFrame.getContentPane().add(messageLabel);
-	}
 }
