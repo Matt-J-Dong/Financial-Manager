@@ -6,9 +6,9 @@ import java.awt.event.ActionEvent;
 
 public class AccountsGUI {
     private JFrame frame;
-    private FinancialData data;
+    private AccountItems data;
 
-    public AccountsGUI(FinancialData data) {
+    public AccountsGUI(AccountItems data) {
         this.data = data;
         initialize();
     }
@@ -26,7 +26,7 @@ public class AccountsGUI {
         checkingsButton.setHorizontalAlignment(SwingConstants.LEFT);
         checkingsButton.setBounds(31, 63, 327, 85);
         JLabel checkingsLabel = new JLabel("$" + data.getCheckings(), SwingConstants.RIGHT);
-        checkingsButton.addActionListener(e -> new EditGUI("Checkings", data, frame, checkingsLabel));
+        checkingsButton.addActionListener(e -> editCheckings(checkingsLabel));
         buttonPanel.setLayout(null);
         
      
@@ -44,7 +44,7 @@ public class AccountsGUI {
         savingsLabel.setBounds(170, 166, 164, 32);
         buttonPanel.add(savingsLabel);
         JButton savingsButton = new JButton("Savings");
-        savingsButton.addActionListener(e -> new EditGUI("Savings", data, frame, savingsLabel));
+        savingsButton.addActionListener(e -> editSavings( savingsLabel));
         savingsButton.setHorizontalAlignment(SwingConstants.LEFT);
         savingsButton.setFont(new Font("SansSerif", Font.BOLD, 16));
         savingsButton.setBounds(31, 137, 327, 89);
@@ -55,11 +55,7 @@ public class AccountsGUI {
         payBillButton.setBounds(196, 264, 151, 29);
         buttonPanel.add(payBillButton);
         payBillButton.addActionListener(e -> {
-           data.payCreditBill();
-           String newCheckings = "$" + data.getCheckings();
-           checkingsLabel.setText(newCheckings);
-           String newCredit = "$" + data.getCredit();
-           creditCardLabel.setText(newCredit);
+           payBill(creditCardLabel, checkingsLabel);
         });
         
         
@@ -69,7 +65,7 @@ public class AccountsGUI {
         buttonPanel.add(creditCardLabel);
         JButton creditCardButton = new JButton("Credit Card");
         creditCardButton.setHorizontalAlignment(SwingConstants.LEFT);
-        creditCardButton.addActionListener(e -> new EditGUI("Credit", data, frame, creditCardLabel));
+        creditCardButton.addActionListener(e -> editCredit(creditCardLabel));
         creditCardButton.setFont(new Font("SansSerif", Font.BOLD, 16));
         creditCardButton.setBounds(31, 215, 327, 89);
         buttonPanel.add(creditCardButton);
@@ -81,11 +77,37 @@ public class AccountsGUI {
         accountsTitleLabel.setBounds(31, 16, 327, 35);
         buttonPanel.add(accountsTitleLabel);
         
-        JButton saveExitButton = new JButton("Save/Exit");
-        saveExitButton.addActionListener(e -> frame.dispose());
-        saveExitButton.setBounds(136, 314, 117, 29);
-        buttonPanel.add(saveExitButton);
+        JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(e -> exit());
+        exitButton.setBounds(136, 314, 117, 29);
+        buttonPanel.add(exitButton);
         frame.setVisible(true);
     }
+    private void exit() {
+    	frame.dispose();
+    }
+    
+    private EditAccountItemsGUI editCheckings(JLabel checkingsLabel) {
+    	return new EditAccountItemsGUI("Checkings", data, frame, checkingsLabel);
+    }
+    
+    private EditAccountItemsGUI editSavings(JLabel savingsLabel) {
+    	return new EditAccountItemsGUI("Savings", data, frame, savingsLabel);
+    }
+    
+    private EditAccountItemsGUI editCredit(JLabel creditLabel) {
+    	return new EditAccountItemsGUI("Credits", data, frame, creditLabel);
+    }
+    
+    
+    private void payBill(JLabel creditCardLabel, JLabel checkingsLabel) {
+    	data.payCreditBill();
+        String newCheckings = "$" + data.getCheckings();
+        checkingsLabel.setText(newCheckings);
+        String newCredit = "$" + data.getCredit();
+        creditCardLabel.setText(newCredit);
+    }
+    
+    
 }
 

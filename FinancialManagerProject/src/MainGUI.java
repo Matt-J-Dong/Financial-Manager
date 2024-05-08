@@ -5,10 +5,14 @@ import java.awt.event.ActionListener;
 
 public class MainGUI {
     private JFrame frame;
-    private FinancialData data;
+    private AccountItems dataA;
+    private BudgetItems dataB;
+    private NetIncomeItems dataN;
 
-    public MainGUI(FinancialData data) {
-        this.data = data;
+    public MainGUI(AccountItems dataA, BudgetItems dataB, NetIncomeItems dataN) {
+        this.dataA = dataA;
+        this.dataB = dataB;
+        this.dataN = dataN;
         initialize();
     }
 
@@ -22,18 +26,18 @@ public class MainGUI {
         JButton netIncomeTrackerButton = new JButton("Net Income Tracker");
         
         netIncomeTrackerButton.setBounds(6, 63, 400, 90);
-        netIncomeTrackerButton.addActionListener(e -> new NetIncomeTrackerGUI(data));
+        netIncomeTrackerButton.addActionListener(e -> new NetIncomeTrackerGUI(dataN));
         buttonPanel.setLayout(null);
         buttonPanel.add(netIncomeTrackerButton);
 
         JButton accountsButton = new JButton("Accounts");
-        accountsButton.setBounds(6, 148, 400, 90);
-        accountsButton.addActionListener(e -> new AccountsGUI(data));
+        accountsButton.setBounds(6, 150, 400, 90);
+        accountsButton.addActionListener(e -> new AccountsGUI(dataA));
         buttonPanel.add(accountsButton);
 
         JButton budgetPlannerButton = new JButton("Budget Advisor");
         budgetPlannerButton.setBounds(6, 238, 400, 90);
-        budgetPlannerButton.addActionListener(e -> new BudgetPlannerGUI("Budget", data, frame));
+        budgetPlannerButton.addActionListener(e -> new BudgetPlannerGUI("Budget", dataB, frame));
         frame.getContentPane().setLayout(null);
         buttonPanel.add(budgetPlannerButton);
 
